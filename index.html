@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Future of Cancer Detection | HelioFlux</title>
-    <meta name="description" content="Experience the difference between traditional cancer screening and HelioFlux biophotonic detection.">
+    <title>The Gap Nobody Solves | HelioFlux</title>
+    <meta name="description" content="Experience the difference between watching and knowing. HelioFlux biophotonic detection.">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Two Paths, One Patient | HelioFlux">
-    <meta property="og:description" content="See why early detection changes everything.">
+    <meta property="og:title" content="Maya's Story | HelioFlux">
+    <meta property="og:description" content="The gap between 'let's watch it' and 'it's too late.'">
     <meta property="og:type" content="website">
     
     <!-- Fonts -->
@@ -26,6 +26,7 @@
             --path-a: #8B9CAD;
             --path-b: #00B4D8;
             --success: #28A745;
+            --warning: #FFC107;
             --danger: #DC3545;
         }
 
@@ -114,6 +115,7 @@
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 600;
             margin-bottom: 1rem;
+            text-align: center;
         }
 
         .lead {
@@ -182,8 +184,184 @@
             border-radius: 16px;
             padding: 2rem;
             backdrop-filter: blur(10px);
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
+        }
+
+        /* Story text */
+        .story-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            max-width: 650px;
+            text-align: left;
+        }
+
+        .story-text p {
+            margin-bottom: 1.25rem;
+        }
+
+        .story-text .highlight {
+            color: var(--helio-glow);
+            font-weight: 500;
+        }
+
+        .story-text .dim {
+            opacity: 0.7;
+        }
+
+        /* The Gap visualization */
+        .gap-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            max-width: 500px;
+        }
+
+        .gap-step {
+            background: rgba(139, 156, 173, 0.2);
+            border: 1px solid rgba(139, 156, 173, 0.3);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .gap-step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gap-step.problem {
+            background: rgba(220, 53, 69, 0.15);
+            border-color: rgba(220, 53, 69, 0.3);
+            color: #ff8a8a;
+        }
+
+        .gap-arrow {
+            color: var(--soft-gray);
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gap-arrow.visible {
+            opacity: 0.5;
+        }
+
+        /* Better flow */
+        .better-flow .gap-step {
+            background: rgba(0, 180, 216, 0.15);
+            border-color: rgba(0, 180, 216, 0.3);
+        }
+
+        .better-flow .gap-step.solution {
+            background: rgba(40, 167, 69, 0.15);
+            border-color: rgba(40, 167, 69, 0.3);
+            color: #7dff9f;
+        }
+
+        /* Real-scale cell comparison */
+        .scale-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            min-height: 280px;
+            flex-wrap: wrap;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scale-circle {
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        /* 1 billion cells - large circle */
+        .scale-circle.billion {
+            width: 220px;
+            height: 220px;
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.8), rgba(255, 100, 100, 0.6));
+            box-shadow: 0 0 60px rgba(220, 53, 69, 0.4);
+            animation: pulse-large 3s infinite ease-in-out;
+        }
+
+        /* 10 million cells - small circle (1/100th the area = 1/10th the diameter) */
+        .scale-circle.million {
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.9), rgba(100, 255, 130, 0.7));
+            box-shadow: 0 0 20px rgba(40, 167, 69, 0.5);
+            animation: pulse-small 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-large {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes pulse-small {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(40, 167, 69, 0.5); }
+            50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(40, 167, 69, 0.7); }
+        }
+
+        .scale-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .scale-label.bad { color: var(--danger); }
+        .scale-label.good { color: var(--success); }
+
+        .scale-sublabel {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            text-align: center;
+            max-width: 150px;
+        }
+
+        .scale-note {
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        /* Quote block */
+        .quote-block {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--helio-teal);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            max-width: 600px;
+        }
+
+        .quote-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+
+        .quote-context {
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
 
         /* Split comparison */
@@ -192,7 +370,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             width: 100%;
-            max-width: 1000px;
+            max-width: 900px;
         }
 
         @media (max-width: 768px) {
@@ -227,184 +405,6 @@
 
         .path-a .path-label { color: var(--path-a); }
         .path-b .path-label { color: var(--helio-glow); }
-
-        /* Timeline */
-        .timeline {
-            text-align: left;
-            margin: 1.5rem 0;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.5s ease;
-        }
-
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .timeline-week {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            min-width: 70px;
-            color: var(--helio-teal);
-        }
-
-        .timeline-event {
-            flex: 1;
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        .timeline-item.highlight .timeline-event {
-            color: var(--danger);
-            font-weight: 600;
-        }
-
-        .path-b .timeline-item.highlight .timeline-event {
-            color: var(--success);
-        }
-
-        /* Comparison stats */
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 1rem;
-            align-items: center;
-            max-width: 800px;
-            width: 100%;
-            margin: 2rem 0;
-        }
-
-        .compare-item {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .compare-label {
-            font-size: 0.85rem;
-            opacity: 0.7;
-            margin-bottom: 0.5rem;
-        }
-
-        .compare-value {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .compare-value.bad { color: var(--path-a); }
-        .compare-value.good { color: var(--helio-glow); }
-
-        .vs-divider {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
-            opacity: 0.5;
-        }
-
-        /* Cell visualization */
-        .cell-compare {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .cell-viz {
-            text-align: center;
-        }
-
-        .cell-circle {
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .cell-circle.large {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, var(--danger), #ff8a8a);
-            animation: pulse-bad 2s infinite;
-        }
-
-        .cell-circle.small {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--success), #7dff9f);
-            animation: pulse-good 2s infinite;
-        }
-
-        @keyframes pulse-bad {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 30px 10px rgba(220, 53, 69, 0.2); }
-        }
-
-        @keyframes pulse-good {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
-            50% { transform: scale(1.1); box-shadow: 0 0 20px 5px rgba(40, 167, 69, 0.3); }
-        }
-
-        /* Progress indicator */
-        .progress-dots {
-            position: fixed;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            z-index: 100;
-        }
-
-        @media (max-width: 768px) {
-            .progress-dots {
-                right: 1rem;
-            }
-        }
-
-        .progress-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .progress-dot.active {
-            background: var(--helio-glow);
-            box-shadow: 0 0 10px var(--helio-glow);
-        }
-
-        .progress-dot:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Character avatar */
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #FFB6C1, #DDA0DD);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 3rem;
-            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.3);
-        }
 
         /* Tech section */
         .tech-grid {
@@ -447,6 +447,56 @@
             margin-top: 2rem;
         }
 
+        /* Progress indicator */
+        .progress-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .progress-dots {
+                right: 1rem;
+            }
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--helio-glow);
+            box-shadow: 0 0 10px var(--helio-glow);
+        }
+
+        .progress-dot:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Character avatar */
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #E8D5B7, #C4A77D);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 40px rgba(200, 170, 130, 0.3);
+        }
+
         /* Scrolling indicator */
         .scroll-hint {
             position: absolute;
@@ -487,26 +537,24 @@
             color: var(--helio-glow);
         }
 
-        /* Quote */
-        .quote {
-            font-size: 1.3rem;
-            font-style: italic;
-            max-width: 600px;
+        /* Emphasis text */
+        .emphasis {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--helio-glow);
             text-align: center;
-            opacity: 0.9;
-            margin: 2rem 0;
-            position: relative;
-            padding: 0 2rem;
+            max-width: 600px;
+            margin: 1.5rem 0;
         }
 
-        .quote::before {
-            content: '"';
-            position: absolute;
-            left: 0;
-            top: -10px;
-            font-size: 3rem;
-            opacity: 0.3;
-            font-family: Georgia, serif;
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 3rem;
+            opacity: 0.5;
+            font-size: 0.85rem;
+            text-align: center;
+            max-width: 500px;
         }
     </style>
 </head>
@@ -522,14 +570,13 @@
 
     <!-- Screen 1: Intro -->
     <section class="screen visible" id="screen-0">
-        <h1>Every Cell Tells a Story</h1>
+        <h1>The Gap Nobody Solves</h1>
         <p class="lead">
-            Every day, your cells emit light.<br>
-            Tiny signals. Invisible to the eye.<br>
-            But not invisible to science.
+            Most patients don't skip care because they don't care.<br>
+            They skip because the next step is expensive, invasive, slow, or uncertain.
         </p>
         <button class="btn btn-primary" onclick="nextScreen()">
-            Begin the Journey
+            See What We Mean
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
@@ -542,199 +589,146 @@
         </div>
     </section>
 
-    <!-- Screen 2: Meet Sarah -->
+    <!-- Screen 2: Meet Maya -->
     <section class="screen hidden" id="screen-1">
         <div class="avatar">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#5D4E37" stroke-width="1.5">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
             </svg>
         </div>
-        <h2>Meet Sarah</h2>
-        <p class="lead">
-            She's 52. Mother of two. Runs her own business.<br>
-            Hasn't missed a checkup in 15 years.
-        </p>
-        <div class="card">
-            <p style="margin-bottom: 1rem;"><strong>Last month, something felt different.</strong></p>
-            <p style="opacity: 0.7; font-size: 0.95rem;">
-                Persistent fatigue. Minor discomfort.<br>
-                Her mother had breast cancer at 58.<br>
-                Her doctor says it's probably nothing — but recommends screening.
+        <h2>Maya's Story</h2>
+        
+        <div class="story-text">
+            <p>
+                Maya has <span class="highlight">no family history</span>. She's not a "high-risk" person.
+            </p>
+            <p>
+                A friend had melanoma a few years back. That planted a seed — weird spots can be serious.
+            </p>
+            <p>
+                Maya notices a small change on her skin. <span class="dim">She delays because it's a hassle.</span>
             </p>
         </div>
-        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
-            See Her Options
+        
+        <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="nextScreen()">
+            Continue
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
         </button>
     </section>
 
-    <!-- Screen 3: Choose Path -->
+    <!-- Screen 3: Maya's Delay -->
     <section class="screen hidden" id="screen-2">
-        <h2>Two Paths Forward</h2>
-        <p class="lead">Same symptoms. Same concern. Different approaches.</p>
+        <h2>The Wait</h2>
         
-        <div class="split-container">
-            <div class="path-card path-a">
-                <div class="path-label">Path A</div>
-                <h3 style="margin-bottom: 0.5rem;">Traditional Screening</h3>
-                <p style="opacity: 0.7; font-size: 0.95rem;">
-                    Mammogram, bloodwork, waiting.<br>
-                    The standard of care for 40 years.
-                </p>
-            </div>
-            <div class="path-card path-b">
-                <div class="path-label">Path B</div>
-                <h3 style="margin-bottom: 0.5rem;">HelioFlux Screening</h3>
-                <p style="opacity: 0.7; font-size: 0.95rem;">
-                    5-minute biophotonic scan.<br>
-                    Results in real-time.
-                </p>
-            </div>
+        <div class="story-text">
+            <p>
+                When Maya finally goes in, she doesn't want a biopsy scar for something that's probably nothing.
+            </p>
+            <p>
+                The dermatologist says, <span class="highlight">"Let's watch it."</span>
+            </p>
+            <p>
+                <span class="dim">So she watches it. Life gets busy. Months pass.</span>
+            </p>
+            <p>
+                Then it changes enough that she can't ignore it. She goes back.
+            </p>
+            <p style="color: var(--danger); font-weight: 500;">
+                Now it's worse.
+            </p>
         </div>
         
-        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
-            Watch Both Paths Unfold
+        <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="nextScreen()">
+            See the Pattern
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
         </button>
     </section>
 
-    <!-- Screen 4: Timeline Comparison -->
+    <!-- Screen 4: The Default Path -->
     <section class="screen hidden" id="screen-3">
-        <h2>The Waiting Game</h2>
+        <h2>The Default Path</h2>
+        <p class="lead">This is how it goes for millions of people.</p>
         
-        <div class="split-container">
-            <div class="path-card path-a">
-                <div class="path-label">Traditional Path</div>
-                <div class="timeline" id="timeline-a">
-                    <div class="timeline-item">
-                        <span class="timeline-week">Week 1</span>
-                        <span class="timeline-event">Mammogram scheduled for next month</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-week">Week 5</span>
-                        <span class="timeline-event">"We see something. Probably benign."</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-week">Week 6</span>
-                        <span class="timeline-event">Follow-up ultrasound ordered</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-week">Week 9</span>
-                        <span class="timeline-event">Biopsy recommended</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-week">Week 11</span>
-                        <span class="timeline-event">Biopsy performed. Waiting...</span>
-                    </div>
-                    <div class="timeline-item highlight">
-                        <span class="timeline-week">Week 13</span>
-                        <span class="timeline-event">Diagnosis: Stage 2 breast cancer</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="path-card path-b">
-                <div class="path-label">HelioFlux Path</div>
-                <div class="timeline" id="timeline-b">
-                    <div class="timeline-item">
-                        <span class="timeline-week">Day 1</span>
-                        <span class="timeline-event">5-minute scan. No needles. No radiation.</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-week">Day 1</span>
-                        <span class="timeline-event">Abnormal photon emissions detected</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-week">Day 2</span>
-                        <span class="timeline-event">Doctor reviews results with Sarah</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-week">Day 3</span>
-                        <span class="timeline-event">Pre-cancerous cells confirmed</span>
-                    </div>
-                    <div class="timeline-item highlight">
-                        <span class="timeline-week">Week 2</span>
-                        <span class="timeline-event">Minimally invasive removal. Done.</span>
-                    </div>
-                </div>
-            </div>
+        <div class="gap-flow" id="defaultFlow">
+            <div class="gap-step">Notice something</div>
+            <div class="gap-arrow">↓</div>
+            <div class="gap-step">Delay</div>
+            <div class="gap-arrow">↓</div>
+            <div class="gap-step">"Let's watch it"</div>
+            <div class="gap-arrow">↓</div>
+            <div class="gap-step">Busy life</div>
+            <div class="gap-arrow">↓</div>
+            <div class="gap-step problem">Return when it's worse</div>
         </div>
         
-        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
-            See the Difference
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-        </button>
-    </section>
-
-    <!-- Screen 5: Cell Comparison -->
-    <section class="screen hidden" id="screen-4">
-        <h2>This is 125x Earlier</h2>
-        
-        <div class="cell-compare">
-            <div class="cell-viz">
-                <div class="cell-circle large"></div>
-                <div class="stat" style="font-size: 1.5rem; color: var(--danger);">1 Billion</div>
-                <div class="stat-label">Cells at Traditional Detection</div>
-            </div>
-            
-            <div style="font-family: 'Space Grotesk'; font-size: 2rem; opacity: 0.5;">vs</div>
-            
-            <div class="cell-viz">
-                <div class="cell-circle small"></div>
-                <div class="stat" style="font-size: 1.5rem; color: var(--success);">8 Million</div>
-                <div class="stat-label">Cells at HelioFlux Detection</div>
-            </div>
-        </div>
-        
-        <p class="quote">
-            That's the difference between treatment and prevention.<br>
-            Between hoping and knowing.
-        </p>
+        <p class="emphasis">The real failure point is the wait:<br>watchful waiting plus human delay.</p>
         
         <button class="btn btn-primary" onclick="nextScreen()">
-            Compare Outcomes
+            There's a Better Path
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
         </button>
     </section>
 
-    <!-- Screen 6: Outcome Comparison -->
-    <section class="screen hidden" id="screen-5">
-        <h2>Two Outcomes</h2>
+    <!-- Screen 5: The Better Path -->
+    <section class="screen hidden" id="screen-4">
+        <h2>The HelioFlux Path</h2>
         
-        <div class="split-container">
-            <div class="path-card path-a">
-                <div class="path-label">Sarah's Reality (Traditional)</div>
-                <div style="text-align: left; margin-top: 1rem;">
-                    <p style="margin-bottom: 0.75rem;">Stage 2 Diagnosis</p>
-                    <p style="margin-bottom: 0.75rem;">Surgery + Chemotherapy + Radiation</p>
-                    <p style="margin-bottom: 0.75rem;">6 months of treatment</p>
-                    <p style="margin-bottom: 0.75rem; font-family: 'Space Grotesk'; font-size: 1.2rem;">$150,000+ in costs</p>
-                    <p style="opacity: 0.7;">Ongoing monitoring for recurrence</p>
-                </div>
+        <div class="gap-flow better-flow" id="betterFlow">
+            <div class="gap-step">Notice something</div>
+            <div class="gap-arrow">↓</div>
+            <div class="gap-step" style="background: rgba(0, 180, 216, 0.25); border-color: var(--helio-teal);">
+                Quick, non-invasive scan
+            </div>
+            <div class="gap-arrow">↓</div>
+            <div class="gap-step">Earlier clarity</div>
+            <div class="gap-arrow">↓</div>
+            <div class="gap-step solution">Earlier action</div>
+        </div>
+        
+        <div class="quote-block">
+            <p class="quote-text">"Let's watch it" is not bad medicine.</p>
+            <p class="quote-context">It's what happens when the tools are limited. HelioFlux gives doctors a better tool in the watch window.</p>
+        </div>
+        
+        <button class="btn btn-primary" onclick="nextScreen()">
+            See the Scale
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- Screen 6: Real Scale Comparison -->
+    <section class="screen hidden" id="screen-5">
+        <h2>To Scale: When Detection Happens</h2>
+        <p class="lead">This is what we're actually comparing.</p>
+        
+        <div class="scale-container">
+            <div class="scale-item">
+                <div class="scale-circle billion"></div>
+                <div class="scale-label bad">1 Billion Cells</div>
+                <div class="scale-sublabel">Traditional detection threshold</div>
             </div>
             
-            <div class="path-card path-b">
-                <div class="path-label">Sarah's Reality (HelioFlux)</div>
-                <div style="text-align: left; margin-top: 1rem;">
-                    <p style="margin-bottom: 0.75rem;">Pre-cancerous Detection</p>
-                    <p style="margin-bottom: 0.75rem;">Outpatient procedure</p>
-                    <p style="margin-bottom: 0.75rem;">2 weeks to normal life</p>
-                    <p style="margin-bottom: 0.75rem; font-family: 'Space Grotesk'; font-size: 1.2rem; color: var(--helio-glow);">~$5,000 total</p>
-                    <p style="opacity: 0.7;">Peace of mind</p>
-                </div>
+            <div class="scale-item">
+                <div class="scale-circle million"></div>
+                <div class="scale-label good">10 Million Cells</div>
+                <div class="scale-sublabel">HelioFlux detection target</div>
             </div>
         </div>
         
-        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
+        <p class="scale-note">Circle areas are proportional to cell counts. This is real scale.</p>
+        
+        <p class="emphasis">100x earlier detection.<br>While clinicians are still deciding what to do.</p>
+        
+        <button class="btn btn-primary" onclick="nextScreen()">
             How It Works
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -744,10 +738,9 @@
 
     <!-- Screen 7: The Technology -->
     <section class="screen hidden" id="screen-6">
-        <h2>The Science of Light</h2>
+        <h2>Detect Metabolic Change Earlier</h2>
         <p class="lead">
-            Every cell in your body emits ultra-weak photons.<br>
-            Healthy cells glow differently than unhealthy ones.
+            Every cell emits ultra-weak photons. The pattern changes when cells change.
         </p>
         
         <div class="tech-grid">
@@ -759,17 +752,7 @@
                     </svg>
                 </div>
                 <div class="tech-title">Biophoton Detection</div>
-                <div class="tech-desc">Reads cellular light emissions in real-time</div>
-            </div>
-            <div class="tech-item">
-                <div class="tech-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
-                        <rect x="3" y="3" width="18" height="18" rx="2"/>
-                        <path d="M3 9h18M9 21V9"/>
-                    </svg>
-                </div>
-                <div class="tech-title">AI Analysis</div>
-                <div class="tech-desc">Pattern recognition identifies anomalies</div>
+                <div class="tech-desc">Reads cellular light emissions</div>
             </div>
             <div class="tech-item">
                 <div class="tech-icon">
@@ -783,6 +766,16 @@
             <div class="tech-item">
                 <div class="tech-icon">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <div class="tech-title">5-Minute Scan</div>
+                <div class="tech-desc">Quick enough to actually happen</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                     </svg>
                 </div>
@@ -791,21 +784,28 @@
             </div>
         </div>
         
+        <p class="emphasis">The HelioFlux advantage: detect metabolic change earlier,<br>when clinicians are still deciding what to do.</p>
+        
         <button class="btn btn-primary" style="margin-top: 1rem;" onclick="nextScreen()">
-            Join the Future
+            Learn More
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
         </button>
     </section>
 
-    <!-- Screen 8: Call to Action -->
+    <!-- Screen 8: Maya's Outcome + CTA -->
     <section class="screen hidden" id="screen-7">
-        <h1>The Future of Detection</h1>
-        <p class="quote">
-            Cancer detection shouldn't be a waiting game.<br>
-            It should be a 5-minute answer.
+        <h2>Maya Gets Clarity Sooner</h2>
+        
+        <p class="lead">
+            With HelioFlux, Maya doesn't wait months in uncertainty.<br>
+            She gets a clear follow-up plan — sooner.
         </p>
+        
+        <div class="quote-block" style="margin-bottom: 2rem;">
+            <p class="quote-text">HelioFlux exists for the gap between "let's watch it" and "it's too late."</p>
+        </div>
         
         <div class="cta-grid">
             <a href="mailto:kelly.lucas@helioflux.co?subject=Investing in HelioFlux" class="btn btn-primary">
@@ -819,8 +819,8 @@
             </a>
         </div>
         
-        <p style="margin-top: 3rem; opacity: 0.6; font-size: 0.9rem;">
-            HelioFlux is currently in development. Technology based on peer-reviewed research.<br>
+        <p class="disclaimer">
+            HelioFlux is currently in development. Based on peer-reviewed research.<br>
             Not yet FDA approved. Intended for investigational use only.
         </p>
         
@@ -873,6 +873,19 @@
             });
         }
 
+        // Animate flow diagrams
+        function animateFlow(flowId) {
+            const flow = document.getElementById(flowId);
+            if (!flow) return;
+            
+            const items = flow.querySelectorAll('.gap-step, .gap-arrow');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, index * 200);
+            });
+        }
+
         // Go to specific screen
         function goToScreen(index) {
             if (isAnimating || index === currentScreen) return;
@@ -892,9 +905,11 @@
                     currentScreen = index;
                     updateProgressDots();
                     
-                    // Animate timeline items on screen 3
+                    // Animate flows on specific screens
                     if (index === 3) {
-                        animateTimelines();
+                        animateFlow('defaultFlow');
+                    } else if (index === 4) {
+                        animateFlow('betterFlow');
                     }
                     
                     setTimeout(() => {
@@ -919,18 +934,6 @@
             if (currentScreen > 0) {
                 goToScreen(currentScreen - 1);
             }
-        }
-
-        // Animate timeline items
-        function animateTimelines() {
-            const timelineA = document.querySelectorAll('#timeline-a .timeline-item');
-            const timelineB = document.querySelectorAll('#timeline-b .timeline-item');
-
-            [...timelineA, ...timelineB].forEach((item, index) => {
-                setTimeout(() => {
-                    item.classList.add('visible');
-                }, index * 300);
-            });
         }
 
         // Keyboard navigation
