@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Future of Cancer Detection | HelioFlux</title>
+    <meta name="description" content="Experience the difference between traditional cancer screening and HelioFlux biophotonic detection.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Two Paths, One Patient | HelioFlux">
+    <meta property="og:description" content="See why early detection changes everything.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --helio-blue: #0A2540;
+            --helio-teal: #00B4D8;
+            --helio-glow: #7DF9FF;
+            --warm-white: #F8F9FA;
+            --soft-gray: #6C757D;
+            --path-a: #8B9CAD;
+            --path-b: #00B4D8;
+            --success: #28A745;
+            --danger: #DC3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--helio-blue);
+            color: var(--warm-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Biophoton particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--helio-glow);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+            25% { transform: translateY(-100px) translateX(50px); opacity: 0.5; }
+            50% { transform: translateY(-50px) translateX(-30px); opacity: 0.3; }
+            75% { transform: translateY(-150px) translateX(20px); opacity: 0.4; }
+        }
+
+        /* Screen container */
+        .screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .screen.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .screen.hidden {
+            display: none;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--warm-white), var(--helio-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .lead {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            max-width: 600px;
+            text-align: center;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .stat {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--helio-glow);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--helio-teal), var(--helio-glow));
+            color: var(--helio-blue);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 180, 216, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--helio-teal);
+            color: var(--helio-teal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--helio-teal);
+            color: var(--helio-blue);
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        /* Split comparison */
+        .split-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        @media (max-width: 768px) {
+            .split-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .path-card {
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .path-a {
+            background: linear-gradient(180deg, rgba(139, 156, 173, 0.2), rgba(139, 156, 173, 0.05));
+            border: 1px solid rgba(139, 156, 173, 0.3);
+        }
+
+        .path-b {
+            background: linear-gradient(180deg, rgba(0, 180, 216, 0.2), rgba(0, 180, 216, 0.05));
+            border: 1px solid rgba(0, 180, 216, 0.3);
+        }
+
+        .path-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .path-a .path-label { color: var(--path-a); }
+        .path-b .path-label { color: var(--helio-glow); }
+
+        /* Timeline */
+        .timeline {
+            text-align: left;
+            margin: 1.5rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-week {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            min-width: 70px;
+            color: var(--helio-teal);
+        }
+
+        .timeline-event {
+            flex: 1;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .timeline-item.highlight .timeline-event {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .path-b .timeline-item.highlight .timeline-event {
+            color: var(--success);
+        }
+
+        /* Comparison stats */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .compare-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .compare-label {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .compare-value.bad { color: var(--path-a); }
+        .compare-value.good { color: var(--helio-glow); }
+
+        .vs-divider {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
+        /* Cell visualization */
+        .cell-compare {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .cell-viz {
+            text-align: center;
+        }
+
+        .cell-circle {
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .cell-circle.large {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--danger), #ff8a8a);
+            animation: pulse-bad 2s infinite;
+        }
+
+        .cell-circle.small {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--success), #7dff9f);
+            animation: pulse-good 2s infinite;
+        }
+
+        @keyframes pulse-bad {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px 10px rgba(220, 53, 69, 0.2); }
+        }
+
+        @keyframes pulse-good {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+            50% { transform: scale(1.1); box-shadow: 0 0 20px 5px rgba(40, 167, 69, 0.3); }
+        }
+
+        /* Progress indicator */
+        .progress-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .progress-dots {
+                right: 1rem;
+            }
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--helio-glow);
+            box-shadow: 0 0 10px var(--helio-glow);
+        }
+
+        .progress-dot:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Character avatar */
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFB6C1, #DDA0DD);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.3);
+        }
+
+        /* Tech section */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .tech-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .tech-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-desc {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* CTA section */
+        .cta-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        /* Scrolling indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-hint svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Logo */
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+            color: var(--warm-white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--helio-glow);
+        }
+
+        /* Quote */
+        .quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            max-width: 600px;
+            text-align: center;
+            opacity: 0.9;
+            margin: 2rem 0;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .quote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -10px;
+            font-size: 3rem;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Logo -->
+    <a href="#" class="logo">Helio<span>Flux</span></a>
+
+    <!-- Progress dots -->
+    <div class="progress-dots" id="progressDots"></div>
+
+    <!-- Screen 1: Intro -->
+    <section class="screen visible" id="screen-0">
+        <h1>Every Cell Tells a Story</h1>
+        <p class="lead">
+            Every day, your cells emit light.<br>
+            Tiny signals. Invisible to the eye.<br>
+            But not invisible to science.
+        </p>
+        <button class="btn btn-primary" onclick="nextScreen()">
+            Begin the Journey
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+        <div class="scroll-hint">
+            <span style="font-size: 0.8rem; margin-bottom: 0.5rem;">Scroll or click</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Screen 2: Meet Sarah -->
+    <section class="screen hidden" id="screen-1">
+        <div class="avatar">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+            </svg>
+        </div>
+        <h2>Meet Sarah</h2>
+        <p class="lead">
+            She's 52. Mother of two. Runs her own business.<br>
+            Hasn't missed a checkup in 15 years.
+        </p>
+        <div class="card">
+            <p style="margin-bottom: 1rem;"><strong>Last month, something felt different.</strong></p>
+            <p style="opacity: 0.7; font-size: 0.95rem;">
+                Persistent fatigue. Minor discomfort.<br>
+                Her mother had breast cancer at 58.<br>
+                Her doctor says it's probably nothing — but recommends screening.
+            </p>
+        </div>
+        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
+            See Her Options
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- Screen 3: Choose Path -->
+    <section class="screen hidden" id="screen-2">
+        <h2>Two Paths Forward</h2>
+        <p class="lead">Same symptoms. Same concern. Different approaches.</p>
+        
+        <div class="split-container">
+            <div class="path-card path-a">
+                <div class="path-label">Path A</div>
+                <h3 style="margin-bottom: 0.5rem;">Traditional Screening</h3>
+                <p style="opacity: 0.7; font-size: 0.95rem;">
+                    Mammogram, bloodwork, waiting.<br>
+                    The standard of care for 40 years.
+                </p>
+            </div>
+            <div class="path-card path-b">
+                <div class="path-label">Path B</div>
+                <h3 style="margin-bottom: 0.5rem;">HelioFlux Screening</h3>
+                <p style="opacity: 0.7; font-size: 0.95rem;">
+                    5-minute biophotonic scan.<br>
+                    Results in real-time.
+                </p>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
+            Watch Both Paths Unfold
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- Screen 4: Timeline Comparison -->
+    <section class="screen hidden" id="screen-3">
+        <h2>The Waiting Game</h2>
+        
+        <div class="split-container">
+            <div class="path-card path-a">
+                <div class="path-label">Traditional Path</div>
+                <div class="timeline" id="timeline-a">
+                    <div class="timeline-item">
+                        <span class="timeline-week">Week 1</span>
+                        <span class="timeline-event">Mammogram scheduled for next month</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-week">Week 5</span>
+                        <span class="timeline-event">"We see something. Probably benign."</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-week">Week 6</span>
+                        <span class="timeline-event">Follow-up ultrasound ordered</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-week">Week 9</span>
+                        <span class="timeline-event">Biopsy recommended</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-week">Week 11</span>
+                        <span class="timeline-event">Biopsy performed. Waiting...</span>
+                    </div>
+                    <div class="timeline-item highlight">
+                        <span class="timeline-week">Week 13</span>
+                        <span class="timeline-event">Diagnosis: Stage 2 breast cancer</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="path-card path-b">
+                <div class="path-label">HelioFlux Path</div>
+                <div class="timeline" id="timeline-b">
+                    <div class="timeline-item">
+                        <span class="timeline-week">Day 1</span>
+                        <span class="timeline-event">5-minute scan. No needles. No radiation.</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-week">Day 1</span>
+                        <span class="timeline-event">Abnormal photon emissions detected</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-week">Day 2</span>
+                        <span class="timeline-event">Doctor reviews results with Sarah</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-week">Day 3</span>
+                        <span class="timeline-event">Pre-cancerous cells confirmed</span>
+                    </div>
+                    <div class="timeline-item highlight">
+                        <span class="timeline-week">Week 2</span>
+                        <span class="timeline-event">Minimally invasive removal. Done.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
+            See the Difference
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- Screen 5: Cell Comparison -->
+    <section class="screen hidden" id="screen-4">
+        <h2>This is 125x Earlier</h2>
+        
+        <div class="cell-compare">
+            <div class="cell-viz">
+                <div class="cell-circle large"></div>
+                <div class="stat" style="font-size: 1.5rem; color: var(--danger);">1 Billion</div>
+                <div class="stat-label">Cells at Traditional Detection</div>
+            </div>
+            
+            <div style="font-family: 'Space Grotesk'; font-size: 2rem; opacity: 0.5;">vs</div>
+            
+            <div class="cell-viz">
+                <div class="cell-circle small"></div>
+                <div class="stat" style="font-size: 1.5rem; color: var(--success);">8 Million</div>
+                <div class="stat-label">Cells at HelioFlux Detection</div>
+            </div>
+        </div>
+        
+        <p class="quote">
+            That's the difference between treatment and prevention.<br>
+            Between hoping and knowing.
+        </p>
+        
+        <button class="btn btn-primary" onclick="nextScreen()">
+            Compare Outcomes
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- Screen 6: Outcome Comparison -->
+    <section class="screen hidden" id="screen-5">
+        <h2>Two Outcomes</h2>
+        
+        <div class="split-container">
+            <div class="path-card path-a">
+                <div class="path-label">Sarah's Reality (Traditional)</div>
+                <div style="text-align: left; margin-top: 1rem;">
+                    <p style="margin-bottom: 0.75rem;">Stage 2 Diagnosis</p>
+                    <p style="margin-bottom: 0.75rem;">Surgery + Chemotherapy + Radiation</p>
+                    <p style="margin-bottom: 0.75rem;">6 months of treatment</p>
+                    <p style="margin-bottom: 0.75rem; font-family: 'Space Grotesk'; font-size: 1.2rem;">$150,000+ in costs</p>
+                    <p style="opacity: 0.7;">Ongoing monitoring for recurrence</p>
+                </div>
+            </div>
+            
+            <div class="path-card path-b">
+                <div class="path-label">Sarah's Reality (HelioFlux)</div>
+                <div style="text-align: left; margin-top: 1rem;">
+                    <p style="margin-bottom: 0.75rem;">Pre-cancerous Detection</p>
+                    <p style="margin-bottom: 0.75rem;">Outpatient procedure</p>
+                    <p style="margin-bottom: 0.75rem;">2 weeks to normal life</p>
+                    <p style="margin-bottom: 0.75rem; font-family: 'Space Grotesk'; font-size: 1.2rem; color: var(--helio-glow);">~$5,000 total</p>
+                    <p style="opacity: 0.7;">Peace of mind</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
+            How It Works
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- Screen 7: The Technology -->
+    <section class="screen hidden" id="screen-6">
+        <h2>The Science of Light</h2>
+        <p class="lead">
+            Every cell in your body emits ultra-weak photons.<br>
+            Healthy cells glow differently than unhealthy ones.
+        </p>
+        
+        <div class="tech-grid">
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                </div>
+                <div class="tech-title">Biophoton Detection</div>
+                <div class="tech-desc">Reads cellular light emissions in real-time</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M3 9h18M9 21V9"/>
+                    </svg>
+                </div>
+                <div class="tech-title">AI Analysis</div>
+                <div class="tech-desc">Pattern recognition identifies anomalies</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <div class="tech-title">Non-Invasive</div>
+                <div class="tech-desc">No blood. No biopsy. No radiation.</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <div class="tech-title">Peer-Reviewed</div>
+                <div class="tech-desc">Published in iScience, 2025</div>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="nextScreen()">
+            Join the Future
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- Screen 8: Call to Action -->
+    <section class="screen hidden" id="screen-7">
+        <h1>The Future of Detection</h1>
+        <p class="quote">
+            Cancer detection shouldn't be a waiting game.<br>
+            It should be a 5-minute answer.
+        </p>
+        
+        <div class="cta-grid">
+            <a href="mailto:kelly.lucas@helioflux.co?subject=Investing in HelioFlux" class="btn btn-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 7l-5-5-5 5"/>
+                </svg>
+                Invest in HelioFlux
+            </a>
+            <a href="mailto:kelly.lucas@helioflux.co?subject=Partnership Inquiry" class="btn btn-secondary">
+                Partner With Us
+            </a>
+        </div>
+        
+        <p style="margin-top: 3rem; opacity: 0.6; font-size: 0.9rem;">
+            HelioFlux is currently in development. Technology based on peer-reviewed research.<br>
+            Not yet FDA approved. Intended for investigational use only.
+        </p>
+        
+        <div style="margin-top: 2rem;">
+            <button class="btn btn-secondary" onclick="goToScreen(0)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Start Over
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // Configuration
+        const totalScreens = 8;
+        let currentScreen = 0;
+        let isAnimating = false;
+
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Create progress dots
+        function createProgressDots() {
+            const container = document.getElementById('progressDots');
+            for (let i = 0; i < totalScreens; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToScreen(i);
+                container.appendChild(dot);
+            }
+        }
+
+        // Update progress dots
+        function updateProgressDots() {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentScreen);
+            });
+        }
+
+        // Go to specific screen
+        function goToScreen(index) {
+            if (isAnimating || index === currentScreen) return;
+            isAnimating = true;
+
+            const current = document.getElementById(`screen-${currentScreen}`);
+            const next = document.getElementById(`screen-${index}`);
+
+            current.classList.remove('visible');
+            
+            setTimeout(() => {
+                current.classList.add('hidden');
+                next.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    next.classList.add('visible');
+                    currentScreen = index;
+                    updateProgressDots();
+                    
+                    // Animate timeline items on screen 3
+                    if (index === 3) {
+                        animateTimelines();
+                    }
+                    
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 500);
+                }, 50);
+            }, 500);
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Next screen
+        function nextScreen() {
+            if (currentScreen < totalScreens - 1) {
+                goToScreen(currentScreen + 1);
+            }
+        }
+
+        // Previous screen
+        function prevScreen() {
+            if (currentScreen > 0) {
+                goToScreen(currentScreen - 1);
+            }
+        }
+
+        // Animate timeline items
+        function animateTimelines() {
+            const timelineA = document.querySelectorAll('#timeline-a .timeline-item');
+            const timelineB = document.querySelectorAll('#timeline-b .timeline-item');
+
+            [...timelineA, ...timelineB].forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, index * 300);
+            });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                nextScreen();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                prevScreen();
+            }
+        });
+
+        // Touch/swipe support
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diff = touchStartY - touchEndY;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    nextScreen();
+                } else {
+                    prevScreen();
+                }
+            }
+        });
+
+        // Mouse wheel navigation
+        let wheelTimeout;
+        document.addEventListener('wheel', (e) => {
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                if (e.deltaY > 30) {
+                    nextScreen();
+                } else if (e.deltaY < -30) {
+                    prevScreen();
+                }
+            }, 50);
+        });
+
+        // Initialize
+        createParticles();
+        createProgressDots();
+    </script>
+</body>
+</html>
