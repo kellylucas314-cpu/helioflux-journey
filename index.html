@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Gap Nobody Solves | HelioFlux</title>
-    <meta name="description" content="Experience the difference between watching and knowing. HelioFlux biophotonic detection.">
-    
+    <title>HelioFlux | The Gap Between "Let's Watch It" and "It's Too Late"</title>
+    <meta name="description" content="An interactive patient journey showing why early cancer detection matters.">
+
     <!-- Open Graph -->
-    <meta property="og:title" content="Maya's Story | HelioFlux">
-    <meta property="og:description" content="The gap between 'let's watch it' and 'it's too late.'">
+    <meta property="og:title" content="HelioFlux | The Gap Between 'Let's Watch It' and 'It's Too Late'">
+    <meta property="og:description" content="Experience Maya's story and discover how HelioFlux fills the gap in early cancer detection.">
     <meta property="og:type" content="website">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --helio-blue: #0A2540;
@@ -23,11 +23,11 @@
             --helio-glow: #7DF9FF;
             --warm-white: #F8F9FA;
             --soft-gray: #6C757D;
-            --path-a: #8B9CAD;
-            --path-b: #00B4D8;
+            --path-traditional: #8B9CAD;
+            --path-helio: #00B4D8;
             --success: #28A745;
-            --warning: #FFC107;
             --danger: #DC3545;
+            --gold: #FFD700;
         }
 
         * {
@@ -38,13 +38,13 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--helio-blue);
+            background: #000;
             color: var(--warm-white);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* Biophoton particles background */
+        /* Particles background */
         .particles {
             position: fixed;
             top: 0;
@@ -58,19 +58,31 @@
 
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             background: var(--helio-glow);
             border-radius: 50%;
-            opacity: 0.3;
-            animation: float 15s infinite ease-in-out;
+            opacity: 0.2;
+            animation: float ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
-            25% { transform: translateY(-100px) translateX(50px); opacity: 0.5; }
-            50% { transform: translateY(-50px) translateX(-30px); opacity: 0.3; }
-            75% { transform: translateY(-150px) translateX(20px); opacity: 0.4; }
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.15;
+            }
+            25% {
+                transform: translateY(-80px) translateX(40px);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-40px) translateX(-25px);
+                opacity: 0.2;
+            }
+            75% {
+                transform: translateY(-120px) translateX(15px);
+                opacity: 0.25;
+            }
         }
 
         /* Screen container */
@@ -80,30 +92,45 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 4rem 2rem;
             position: relative;
             z-index: 1;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 0.8s ease;
         }
 
         .screen.visible {
             opacity: 1;
-            transform: translateY(0);
         }
 
         .screen.hidden {
             display: none;
         }
 
+        /* Background color transitions */
+        body.screen-0 { background: #000; }
+        body.screen-1 { background: var(--helio-blue); }
+        body.screen-2 { background: var(--helio-blue); }
+        body.screen-3 { background: var(--helio-blue); }
+        body.screen-4 { background: var(--helio-blue); }
+        body.screen-5 { background: var(--helio-blue); }
+        body.screen-6 { background: linear-gradient(180deg, var(--helio-blue) 0%, #1a3a52 100%); }
+
+        /* Gold particles for screen 6 */
+        body.screen-6 .particle {
+            background: linear-gradient(135deg, var(--helio-glow), var(--gold));
+        }
+
         /* Typography */
-        h1 {
+        h1, h2 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 700;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             background: linear-gradient(135deg, var(--warm-white), var(--helio-glow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -111,93 +138,135 @@
         }
 
         h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 600;
-            margin-bottom: 1rem;
             text-align: center;
-        }
-
-        .lead {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            max-width: 600px;
-            text-align: center;
-            opacity: 0.9;
             margin-bottom: 2rem;
         }
 
-        .stat {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 700;
+        .lead {
+            font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+            max-width: 700px;
+            text-align: center;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Screen 1 - Sequential text reveal */
+        .reveal-text {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .reveal-line {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            line-height: 2;
+            opacity: 0;
+            transition: opacity 1.5s ease-in;
+            margin-bottom: 1.5rem;
+        }
+
+        .reveal-line.visible {
+            opacity: 0.9;
+        }
+
+        .reveal-line:last-child {
             color: var(--helio-glow);
+            font-weight: 500;
+            margin-top: 2rem;
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.7;
-            margin-top: 0.5rem;
-        }
-
-        /* Buttons */
+        /* Buttons - refined, Apple-like */
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
+            gap: 0.75rem;
+            padding: 1rem 2.25rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
             border: none;
-            border-radius: 50px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--helio-teal), var(--helio-glow));
-            color: var(--helio-blue);
+            background: linear-gradient(135deg, #00B4D8 0%, #0891B2 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 180, 216, 0.15);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 180, 216, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 180, 216, 0.3);
+            background: linear-gradient(135deg, #0dcaf0 0%, #00B4D8 100%);
         }
 
         .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--helio-teal);
+            background: rgba(0, 180, 216, 0.08);
             color: var(--helio-teal);
+            border: 1px solid rgba(0, 180, 216, 0.2);
         }
 
         .btn-secondary:hover {
-            background: var(--helio-teal);
-            color: var(--helio-blue);
+            background: rgba(0, 180, 216, 0.15);
+            border-color: rgba(0, 180, 216, 0.4);
+            transform: translateY(-2px);
         }
 
-        /* Cards */
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            max-width: 600px;
+        /* Character images */
+        .character-scene {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
             width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .character-image {
+            flex-shrink: 0;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.3));
+        }
+
+        .character-image-glow {
+            filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.3)) drop-shadow(0 20px 60px rgba(0, 0, 0, 0.3));
+        }
+
+        .character-content {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .character-scene {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .character-image {
+                max-width: 100%;
+            }
         }
 
         /* Story text */
         .story-text {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            max-width: 650px;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            max-width: 700px;
             text-align: left;
         }
 
         .story-text p {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .story-text .highlight {
@@ -206,30 +275,32 @@
         }
 
         .story-text .dim {
-            opacity: 0.7;
+            opacity: 0.65;
         }
 
-        /* The Gap visualization */
+        /* Flow diagrams */
         .gap-flow {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
             max-width: 500px;
+            width: 100%;
         }
 
         .gap-step {
-            background: rgba(139, 156, 173, 0.2);
-            border: 1px solid rgba(139, 156, 173, 0.3);
-            padding: 0.75rem 1.5rem;
+            background: rgba(139, 156, 173, 0.08);
+            border: 1px solid rgba(139, 156, 173, 0.15);
+            padding: 1.1rem 2rem;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             width: 100%;
             text-align: center;
             opacity: 0;
             transform: translateY(10px);
             transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
         }
 
         .gap-step.visible {
@@ -238,42 +309,92 @@
         }
 
         .gap-step.problem {
-            background: rgba(220, 53, 69, 0.15);
+            background: rgba(220, 53, 69, 0.12);
             border-color: rgba(220, 53, 69, 0.3);
-            color: #ff8a8a;
+            color: #ff9999;
+            font-weight: 500;
+            animation: pulse-danger 2s ease-in-out;
+        }
+
+        @keyframes pulse-danger {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(0) scale(1.02); }
         }
 
         .gap-arrow {
             color: var(--soft-gray);
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
         .gap-arrow.visible {
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
-        /* Better flow */
+        /* HelioFlux path styling */
         .better-flow .gap-step {
+            background: rgba(0, 180, 216, 0.08);
+            border-color: rgba(0, 180, 216, 0.2);
+        }
+
+        .better-flow .gap-step.highlight-teal {
             background: rgba(0, 180, 216, 0.15);
-            border-color: rgba(0, 180, 216, 0.3);
+            border-color: rgba(0, 180, 216, 0.4);
+            color: var(--helio-glow);
         }
 
         .better-flow .gap-step.solution {
-            background: rgba(40, 167, 69, 0.15);
+            background: rgba(40, 167, 69, 0.12);
             border-color: rgba(40, 167, 69, 0.3);
-            color: #7dff9f;
+            color: #90ff9f;
+            font-weight: 500;
         }
 
-        /* Real-scale cell comparison */
+        /* Quote block */
+        .quote-block {
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.03), rgba(125, 249, 255, 0.02));
+            border-left: 2px solid var(--helio-teal);
+            padding: 2.5rem 3rem;
+            margin: 3rem 0;
+            max-width: 650px;
+            width: 100%;
+            border-radius: 2px;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .quote-context {
+            font-size: 1rem;
+            opacity: 0.75;
+            line-height: 1.7;
+        }
+
+        /* Emphasis text */
+        .emphasis {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 600;
+            color: var(--helio-glow);
+            text-align: center;
+            max-width: 700px;
+            margin: 2rem 0;
+            line-height: 1.6;
+        }
+
+        /* Scale comparison */
         .scale-container {
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            gap: 3rem;
-            margin: 2rem 0;
-            min-height: 280px;
+            gap: 4rem;
+            margin: 3rem 0;
+            min-height: 300px;
             flex-wrap: wrap;
         }
 
@@ -285,14 +406,9 @@
 
         .scale-circle {
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            position: relative;
+            margin-bottom: 1.5rem;
         }
 
-        /* 1 billion cells - large circle */
         .scale-circle.billion {
             width: 220px;
             height: 220px;
@@ -301,13 +417,11 @@
             animation: pulse-large 3s infinite ease-in-out;
         }
 
-        /* 10 million cells - small circle (1/100th the area = 1/10th the diameter) */
         .scale-circle.million {
             width: 22px;
             height: 22px;
             background: linear-gradient(135deg, rgba(40, 167, 69, 0.9), rgba(100, 255, 130, 0.7));
-            box-shadow: 0 0 20px rgba(40, 167, 69, 0.5);
-            animation: pulse-small 2s infinite ease-in-out;
+            box-shadow: 0 0 20px rgba(40, 167, 69, 0.6);
         }
 
         @keyframes pulse-large {
@@ -315,139 +429,112 @@
             50% { transform: scale(1.02); }
         }
 
-        @keyframes pulse-small {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(40, 167, 69, 0.5); }
-            50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(40, 167, 69, 0.7); }
-        }
-
         .scale-label {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            font-size: 1.3rem;
-            margin-bottom: 0.25rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
         }
 
         .scale-label.bad { color: var(--danger); }
         .scale-label.good { color: var(--success); }
 
         .scale-sublabel {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             opacity: 0.7;
             text-align: center;
-            max-width: 150px;
+            max-width: 200px;
         }
 
         .scale-note {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             opacity: 0.5;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             text-align: center;
-        }
-
-        /* Quote block */
-        .quote-block {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid var(--helio-teal);
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
-            max-width: 600px;
-        }
-
-        .quote-text {
-            font-size: 1.2rem;
             font-style: italic;
-            margin-bottom: 0.75rem;
         }
 
-        .quote-context {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        /* Split comparison */
-        .split-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+        /* Tech section - minimal, scientific */
+        .tech-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-width: 650px;
             width: 100%;
-            max-width: 900px;
-        }
-
-        @media (max-width: 768px) {
-            .split-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .path-card {
-            padding: 2rem;
-            border-radius: 16px;
-            text-align: center;
-        }
-
-        .path-a {
-            background: linear-gradient(180deg, rgba(139, 156, 173, 0.2), rgba(139, 156, 173, 0.05));
-            border: 1px solid rgba(139, 156, 173, 0.3);
-        }
-
-        .path-b {
-            background: linear-gradient(180deg, rgba(0, 180, 216, 0.2), rgba(0, 180, 216, 0.05));
-            border: 1px solid rgba(0, 180, 216, 0.3);
-        }
-
-        .path-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-            opacity: 0.7;
-        }
-
-        .path-a .path-label { color: var(--path-a); }
-        .path-b .path-label { color: var(--helio-glow); }
-
-        /* Tech section */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            max-width: 800px;
-            width: 100%;
-            margin: 2rem 0;
+            margin: 3.5rem 0;
         }
 
         .tech-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .tech-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
         }
 
         .tech-icon {
-            font-size: 2rem;
-            margin-bottom: 0.75rem;
+            flex-shrink: 0;
+            opacity: 0.85;
+        }
+
+        .tech-icon svg {
+            stroke-width: 1.25;
+        }
+
+        .tech-content {
+            flex: 1;
         }
 
         .tech-title {
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 600;
+            font-size: 1.2rem;
             margin-bottom: 0.5rem;
+            color: var(--helio-glow);
         }
 
         .tech-desc {
-            font-size: 0.9rem;
-            opacity: 0.7;
+            font-size: 1rem;
+            opacity: 0.75;
+            line-height: 1.7;
         }
 
         /* CTA section */
         .cta-grid {
             display: flex;
-            gap: 1rem;
+            gap: 1.25rem;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
         }
 
-        /* Progress indicator */
+        .text-link {
+            color: var(--helio-teal);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .text-link:hover {
+            color: var(--helio-glow);
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 3rem;
+            opacity: 0.5;
+            font-size: 0.85rem;
+            text-align: center;
+            max-width: 550px;
+            line-height: 1.6;
+        }
+
+        /* Progress dots */
         .progress-dots {
             position: fixed;
             right: 2rem;
@@ -455,7 +542,7 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.85rem;
             z-index: 100;
         }
 
@@ -476,142 +563,102 @@
 
         .progress-dot.active {
             background: var(--helio-glow);
-            box-shadow: 0 0 10px var(--helio-glow);
+            box-shadow: 0 0 12px var(--helio-glow);
+            transform: scale(1.2);
         }
 
         .progress-dot:hover {
             background: rgba(255, 255, 255, 0.5);
         }
 
-        /* Character avatar */
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #E8D5B7, #C4A77D);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2.5rem;
-            box-shadow: 0 10px 40px rgba(200, 170, 130, 0.3);
-        }
-
-        /* Scrolling indicator */
-        .scroll-hint {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0.6;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        .scroll-hint svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* Logo */
-        .logo {
+        /* Anchor line (Screen 6) */
+        .anchor-line {
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            z-index: 100;
-            color: var(--warm-white);
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--helio-glow);
-        }
-
-        /* Emphasis text */
-        .emphasis {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.4rem;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 600;
-            color: var(--helio-glow);
             text-align: center;
-            max-width: 600px;
-            margin: 1.5rem 0;
+            max-width: 800px;
+            margin: 2.5rem 0;
+            line-height: 1.5;
+            background: linear-gradient(135deg, var(--warm-white), var(--helio-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Disclaimer */
-        .disclaimer {
-            margin-top: 3rem;
-            opacity: 0.5;
-            font-size: 0.85rem;
-            text-align: center;
-            max-width: 500px;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .story-text {
+                font-size: 1.1rem;
+            }
+
+            .scale-container {
+                gap: 2.5rem;
+            }
+
+            .tech-column {
+                max-width: 100%;
+            }
+
+            .cta-grid {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
-<body>
+<body class="screen-0">
     <!-- Particles background -->
     <div class="particles" id="particles"></div>
-
-    <!-- Logo -->
-    <a href="#" class="logo">Helio<span>Flux</span></a>
 
     <!-- Progress dots -->
     <div class="progress-dots" id="progressDots"></div>
 
-    <!-- Screen 1: Intro -->
+    <!-- SCREEN 1: THE HOOK -->
     <section class="screen visible" id="screen-0">
-        <h1>The Gap Nobody Solves</h1>
-        <p class="lead">
-            Most patients don't skip care because they don't care.<br>
-            They skip because the next step is expensive, invasive, slow, or uncertain.
-        </p>
-        <button class="btn btn-primary" onclick="nextScreen()">
-            See What We Mean
+        <div class="reveal-text">
+            <div class="reveal-line">Most people don't skip the doctor because they don't care.</div>
+            <div class="reveal-line">They put it off because getting it checked means appointments.<br>Biopsies. Weeks of waiting. Bills.</div>
+            <div class="reveal-line">So they wait.</div>
+        </div>
+        <button class="btn btn-primary" style="margin-top: 3rem; opacity: 0;" id="screen1-btn" onclick="nextScreen()">
+            What happens when they wait
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
         </button>
-        <div class="scroll-hint">
-            <span style="font-size: 0.8rem; margin-bottom: 0.5rem;">Scroll or click</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-        </div>
     </section>
 
-    <!-- Screen 2: Meet Maya -->
+    <!-- SCREEN 2: MEET MAYA -->
     <section class="screen hidden" id="screen-1">
-        <div class="avatar">
-            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#5D4E37" stroke-width="1.5">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
-            </svg>
+        <h2>This is Maya.</h2>
+
+        <div class="character-scene">
+            <img src="maya-arm.png" alt="Maya examining a spot on her arm" class="character-image">
+
+            <div class="character-content">
+                <div class="story-text">
+                    <p>
+                        <span class="highlight">No family history. No risk factors.</span><br>
+                        Just a person who noticed a small change on her skin.
+                    </p>
+                    <p>
+                        A friend had melanoma a few years back — so Maya knows weird spots can be serious.
+                    </p>
+                    <p>
+                        She makes a mental note to get it checked.
+                    </p>
+                </div>
+            </div>
         </div>
-        <h2>Maya's Story</h2>
-        
-        <div class="story-text">
-            <p>
-                Maya has <span class="highlight">no family history</span>. She's not a "high-risk" person.
-            </p>
-            <p>
-                A friend had melanoma a few years back. That planted a seed — weird spots can be serious.
-            </p>
-            <p>
-                Maya notices a small change on her skin. <span class="dim">She delays because it's a hassle.</span>
-            </p>
-        </div>
-        
-        <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="nextScreen()">
+
+        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
             Continue
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -619,213 +666,231 @@
         </button>
     </section>
 
-    <!-- Screen 3: Maya's Delay -->
+    <!-- SCREEN 3: THE DELAY -->
     <section class="screen hidden" id="screen-2">
-        <h2>The Wait</h2>
-        
-        <div class="story-text">
-            <p>
-                When Maya finally goes in, she doesn't want a biopsy scar for something that's probably nothing.
-            </p>
-            <p>
-                The dermatologist says, <span class="highlight">"Let's watch it."</span>
-            </p>
-            <p>
-                <span class="dim">So she watches it. Life gets busy. Months pass.</span>
-            </p>
-            <p>
-                Then it changes enough that she can't ignore it. She goes back.
-            </p>
-            <p style="color: var(--danger); font-weight: 500;">
-                Now it's worse.
-            </p>
-        </div>
-        
-        <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="nextScreen()">
-            See the Pattern
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-        </button>
-    </section>
+        <h2>The Delay</h2>
 
-    <!-- Screen 4: The Default Path -->
-    <section class="screen hidden" id="screen-3">
-        <h2>The Default Path</h2>
-        <p class="lead">This is how it goes for millions of people.</p>
-        
-        <div class="gap-flow" id="defaultFlow">
+        <div class="story-text" style="margin-bottom: 2rem;">
+            <p>She puts it off. It's a hassle. It's probably nothing.</p>
+            <p>
+                When she finally goes in, she doesn't want a biopsy scar<br>
+                for something that's <span class="dim">"probably benign."</span>
+            </p>
+            <p>Her doctor agrees: <span class="highlight">"Let's watch it."</span></p>
+            <p>So Maya watches it. Months pass. Life gets busy.</p>
+            <p>Then it changes enough that she can't ignore it anymore.</p>
+        </div>
+
+        <div class="gap-flow" id="delayFlow">
             <div class="gap-step">Notice something</div>
             <div class="gap-arrow">↓</div>
             <div class="gap-step">Delay</div>
             <div class="gap-arrow">↓</div>
             <div class="gap-step">"Let's watch it"</div>
             <div class="gap-arrow">↓</div>
-            <div class="gap-step">Busy life</div>
+            <div class="gap-step">Life gets busy</div>
             <div class="gap-arrow">↓</div>
             <div class="gap-step problem">Return when it's worse</div>
         </div>
-        
-        <p class="emphasis">The real failure point is the wait:<br>watchful waiting plus human delay.</p>
-        
-        <button class="btn btn-primary" onclick="nextScreen()">
-            There's a Better Path
+
+        <p class="emphasis">This isn't a failure of medicine.<br>It's a failure of timing.</p>
+
+        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
+            There's another path
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
         </button>
     </section>
 
-    <!-- Screen 5: The Better Path -->
-    <section class="screen hidden" id="screen-4">
+    <!-- SCREEN 4: THE HELIOFLUX PATH -->
+    <section class="screen hidden" id="screen-3">
         <h2>The HelioFlux Path</h2>
-        
+        <p class="lead">
+            Now imagine Maya had another option.<br><br>
+            Not a replacement for her doctor's judgment.<br>
+            A better tool in the window where decisions get made.
+        </p>
+
         <div class="gap-flow better-flow" id="betterFlow">
             <div class="gap-step">Notice something</div>
             <div class="gap-arrow">↓</div>
-            <div class="gap-step" style="background: rgba(0, 180, 216, 0.25); border-color: var(--helio-teal);">
-                Quick, non-invasive scan
-            </div>
+            <div class="gap-step highlight-teal">Quick, non-invasive scan</div>
             <div class="gap-arrow">↓</div>
             <div class="gap-step">Earlier clarity</div>
             <div class="gap-arrow">↓</div>
             <div class="gap-step solution">Earlier action</div>
         </div>
-        
+
         <div class="quote-block">
             <p class="quote-text">"Let's watch it" is not bad medicine.</p>
-            <p class="quote-context">It's what happens when the tools are limited. HelioFlux gives doctors a better tool in the watch window.</p>
+            <p class="quote-context">
+                It's what happens when the tools are limited.<br>
+                HelioFlux gives doctors a better tool in the watch window.
+            </p>
         </div>
-        
+
         <button class="btn btn-primary" onclick="nextScreen()">
-            See the Scale
+            See the difference
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
         </button>
     </section>
 
-    <!-- Screen 6: Real Scale Comparison -->
-    <section class="screen hidden" id="screen-5">
+    <!-- SCREEN 5: THE SCALE -->
+    <section class="screen hidden" id="screen-4">
         <h2>To Scale: When Detection Happens</h2>
-        <p class="lead">This is what we're actually comparing.</p>
-        
+
+        <p class="lead" style="margin-bottom: 3rem; opacity: 0.85;">
+            How big does cancer need to grow before we can find it?
+        </p>
+
         <div class="scale-container">
             <div class="scale-item">
                 <div class="scale-circle billion"></div>
                 <div class="scale-label bad">1 Billion Cells</div>
-                <div class="scale-sublabel">Traditional detection threshold</div>
+                <div class="scale-sublabel">Traditional detection</div>
             </div>
-            
+
             <div class="scale-item">
                 <div class="scale-circle million"></div>
                 <div class="scale-label good">10 Million Cells</div>
                 <div class="scale-sublabel">HelioFlux detection target</div>
             </div>
         </div>
-        
+
         <p class="scale-note">Circle areas are proportional to cell counts. This is real scale.</p>
-        
-        <p class="emphasis">100x earlier detection.<br>While clinicians are still deciding what to do.</p>
-        
-        <button class="btn btn-primary" onclick="nextScreen()">
-            How It Works
+
+        <p class="emphasis" style="font-size: clamp(2rem, 5vw, 3rem); margin-top: 2.5rem;">
+            100× earlier.
+        </p>
+
+        <p class="lead" style="margin-top: 1rem;">
+            While clinicians are still deciding what to do.
+        </p>
+
+        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
+            How it works
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
         </button>
     </section>
 
-    <!-- Screen 7: The Technology -->
+    <!-- SCREEN 6: MAYA'S OUTCOME -->
+    <section class="screen hidden" id="screen-5">
+        <div class="character-scene">
+            <img src="maya-doctor.png" alt="Maya with her doctor" class="character-image character-image-glow">
+
+            <div class="character-content">
+                <p class="lead">
+                    With HelioFlux, Maya doesn't spend months in uncertainty.<br><br>
+                    She gets a clear follow-up plan — sooner.
+                </p>
+
+                <div class="story-text" style="text-align: left; margin: 2rem 0;">
+                    <p>
+                        Not a diagnosis from a machine.<br>
+                        A better signal for the doctor who's already paying attention.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="anchor-line">
+            HelioFlux exists for the gap between<br>
+            "let's watch it" and "it's too late."
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: 2rem;" onclick="nextScreen()">
+            Learn more
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- SCREEN 7: THE FUTURE + CTA -->
     <section class="screen hidden" id="screen-6">
-        <h2>Detect Metabolic Change Earlier</h2>
+        <h2>The Science Behind the Signal</h2>
         <p class="lead">
-            Every cell emits ultra-weak photons. The pattern changes when cells change.
+            Every cell emits light. The pattern changes when cells change.<br>
+            HelioFlux reads that signal — earlier than anything else available today.
         </p>
-        
-        <div class="tech-grid">
-            <div class="tech-item">
-                <div class="tech-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="3"/>
-                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                    </svg>
-                </div>
-                <div class="tech-title">Biophoton Detection</div>
-                <div class="tech-desc">Reads cellular light emissions</div>
-            </div>
-            <div class="tech-item">
-                <div class="tech-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
-                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                    </svg>
-                </div>
-                <div class="tech-title">Non-Invasive</div>
-                <div class="tech-desc">No blood. No biopsy. No radiation.</div>
-            </div>
-            <div class="tech-item">
-                <div class="tech-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 6v6l4 2"/>
-                    </svg>
-                </div>
-                <div class="tech-title">5-Minute Scan</div>
-                <div class="tech-desc">Quick enough to actually happen</div>
-            </div>
-            <div class="tech-item">
-                <div class="tech-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.5">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                </div>
-                <div class="tech-title">Peer-Reviewed</div>
-                <div class="tech-desc">Published in iScience, 2025</div>
-            </div>
-        </div>
-        
-        <p class="emphasis">The HelioFlux advantage: detect metabolic change earlier,<br>when clinicians are still deciding what to do.</p>
-        
-        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="nextScreen()">
-            Learn More
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-        </button>
-    </section>
 
-    <!-- Screen 8: Maya's Outcome + CTA -->
-    <section class="screen hidden" id="screen-7">
-        <h2>Maya Gets Clarity Sooner</h2>
-        
-        <p class="lead">
-            With HelioFlux, Maya doesn't wait months in uncertainty.<br>
-            She gets a clear follow-up plan — sooner.
-        </p>
-        
-        <div class="quote-block" style="margin-bottom: 2rem;">
-            <p class="quote-text">HelioFlux exists for the gap between "let's watch it" and "it's too late."</p>
+        <div class="tech-column">
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.25">
+                        <circle cx="12" cy="12" r="2.5"/>
+                        <path d="M12 1v2.5M12 20.5v2.5M4.22 4.22l1.77 1.77M18.01 18.01l1.77 1.77M1 12h2.5M20.5 12h2.5M4.22 19.78l1.77-1.77M18.01 5.99l1.77-1.77"/>
+                        <circle cx="12" cy="12" r="6" opacity="0.3"/>
+                    </svg>
+                </div>
+                <div class="tech-content">
+                    <div class="tech-title">Biophoton Detection</div>
+                    <div class="tech-desc">Reads ultra-weak light emissions from cells</div>
+                </div>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.25">
+                        <path d="M22 12h-4.5l-2.5 8L9 4l-2.5 8H2"/>
+                        <circle cx="15" cy="12" r="1.5" opacity="0.5"/>
+                    </svg>
+                </div>
+                <div class="tech-content">
+                    <div class="tech-title">Non-Invasive</div>
+                    <div class="tech-desc">No blood. No biopsy. No radiation.</div>
+                </div>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.25">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 7v5l3.5 2"/>
+                        <circle cx="12" cy="12" r="1.5"/>
+                    </svg>
+                </div>
+                <div class="tech-content">
+                    <div class="tech-title">5-Minute Scan</div>
+                    <div class="tech-desc">Quick enough to actually happen</div>
+                </div>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--helio-glow)" stroke-width="1.25">
+                        <path d="M12 22s7-3.5 7-9V5.5l-7-2.5-7 2.5V13c0 5.5 7 9 7 9z"/>
+                        <path d="M9 12l2 2 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="tech-content">
+                    <div class="tech-title">Peer-Reviewed</div>
+                    <div class="tech-desc">Published in iScience, 2025</div>
+                </div>
+            </div>
         </div>
-        
+
         <div class="cta-grid">
-            <a href="mailto:kelly.lucas@helioflux.co?subject=Investing in HelioFlux" class="btn btn-primary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2v20M17 7l-5-5-5 5"/>
-                </svg>
+            <a href="mailto:kelly.lucas@helioflux.co?subject=Investing%20in%20HelioFlux" class="btn btn-primary">
                 Invest in HelioFlux
             </a>
-            <a href="mailto:kelly.lucas@helioflux.co?subject=Partnership Inquiry" class="btn btn-secondary">
+            <a href="mailto:kelly.lucas@helioflux.co?subject=Partnership%20Inquiry" class="btn btn-secondary">
                 Partner With Us
             </a>
         </div>
-        
+
         <p class="disclaimer">
             HelioFlux is currently in development. Based on peer-reviewed research.<br>
             Not yet FDA approved. Intended for investigational use only.
         </p>
-        
+
         <div style="margin-top: 2rem;">
-            <button class="btn btn-secondary" onclick="goToScreen(0)">
+            <button class="btn btn-secondary" onclick="goToScreen(0)" style="padding: 0.85rem 1.75rem;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
@@ -836,7 +901,7 @@
 
     <script>
         // Configuration
-        const totalScreens = 8;
+        const totalScreens = 7;
         let currentScreen = 0;
         let isAnimating = false;
 
@@ -877,7 +942,7 @@
         function animateFlow(flowId) {
             const flow = document.getElementById(flowId);
             if (!flow) return;
-            
+
             const items = flow.querySelectorAll('.gap-step, .gap-arrow');
             items.forEach((item, index) => {
                 setTimeout(() => {
@@ -886,39 +951,62 @@
             });
         }
 
+        // Screen 1 reveal animation
+        function animateScreen1() {
+            const lines = document.querySelectorAll('#screen-0 .reveal-line');
+            const btn = document.getElementById('screen1-btn');
+
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.classList.add('visible');
+                }, index * 1500);
+            });
+
+            // Show button after all text
+            setTimeout(() => {
+                btn.style.opacity = '1';
+                btn.style.transition = 'opacity 1s ease-in';
+            }, lines.length * 1500);
+        }
+
+        // Update body class for background transitions
+        function updateBodyClass() {
+            document.body.className = `screen-${currentScreen}`;
+        }
+
         // Go to specific screen
         function goToScreen(index) {
-            if (isAnimating || index === currentScreen) return;
+            if (isAnimating || index === currentScreen || index < 0 || index >= totalScreens) return;
             isAnimating = true;
 
             const current = document.getElementById(`screen-${currentScreen}`);
             const next = document.getElementById(`screen-${index}`);
 
             current.classList.remove('visible');
-            
+
             setTimeout(() => {
                 current.classList.add('hidden');
                 next.classList.remove('hidden');
-                
+
                 setTimeout(() => {
                     next.classList.add('visible');
                     currentScreen = index;
                     updateProgressDots();
-                    
-                    // Animate flows on specific screens
-                    if (index === 3) {
-                        animateFlow('defaultFlow');
-                    } else if (index === 4) {
-                        animateFlow('betterFlow');
+                    updateBodyClass();
+
+                    // Trigger animations for specific screens
+                    if (index === 2) {
+                        setTimeout(() => animateFlow('delayFlow'), 500);
+                    } else if (index === 3) {
+                        setTimeout(() => animateFlow('betterFlow'), 500);
                     }
-                    
+
                     setTimeout(() => {
                         isAnimating = false;
                     }, 500);
                 }, 50);
             }, 500);
 
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -982,6 +1070,7 @@
         // Initialize
         createParticles();
         createProgressDots();
+        animateScreen1();
     </script>
 </body>
 </html>
