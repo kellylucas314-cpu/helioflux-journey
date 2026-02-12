@@ -36,12 +36,21 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #000;
             color: var(--warm-white);
             overflow-x: hidden;
+            overflow-y: auto;
             line-height: 1.7;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+            overscroll-behavior: contain;
         }
 
         /* Particles background */
@@ -92,11 +101,21 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             position: relative;
             z-index: 1;
             opacity: 0;
             transition: opacity 0.8s ease;
+        }
+
+        /* Allow scrolling on mobile when content overflows */
+        @media (max-width: 768px) {
+            .screen {
+                justify-content: flex-start;
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+                touch-action: pan-y;
+            }
         }
 
         .screen.visible {
@@ -548,7 +567,7 @@
 
         @media (max-width: 768px) {
             .progress-dots {
-                right: 1rem;
+                display: none;
             }
         }
 
@@ -619,6 +638,11 @@
 
     <!-- Progress dots -->
     <div class="progress-dots" id="progressDots"></div>
+
+    <!-- Version indicator - remove this after testing -->
+    <div style="position: fixed; bottom: 10px; left: 10px; background: red; color: white; padding: 5px 10px; font-size: 12px; z-index: 9999; border-radius: 4px;">
+        v2.0 - NO AUTO SCROLL
+    </div>
 
     <!-- SCREEN 1: THE HOOK -->
     <section class="screen visible" id="screen-0">
@@ -1012,6 +1036,8 @@
 
         // Next screen
         function nextScreen() {
+            console.log('nextScreen() called - only should happen from button click');
+            console.trace(); // Show call stack
             if (currentScreen < totalScreens - 1) {
                 goToScreen(currentScreen + 1);
             }
@@ -1024,48 +1050,13 @@
             }
         }
 
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
-                e.preventDefault();
-                nextScreen();
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                e.preventDefault();
-                prevScreen();
-            }
-        });
+        // ALL AUTOMATIC NAVIGATION DISABLED
+        // Navigation only works via:
+        // 1. Clicking "Continue" buttons
+        // 2. Clicking progress dots
+        // This ensures users can scroll freely on mobile without accidental screen changes
 
-        // Touch/swipe support
-        let touchStartY = 0;
-        document.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        });
-
-        document.addEventListener('touchend', (e) => {
-            const touchEndY = e.changedTouches[0].clientY;
-            const diff = touchStartY - touchEndY;
-
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) {
-                    nextScreen();
-                } else {
-                    prevScreen();
-                }
-            }
-        });
-
-        // Mouse wheel navigation
-        let wheelTimeout;
-        document.addEventListener('wheel', (e) => {
-            clearTimeout(wheelTimeout);
-            wheelTimeout = setTimeout(() => {
-                if (e.deltaY > 30) {
-                    nextScreen();
-                } else if (e.deltaY < -30) {
-                    prevScreen();
-                }
-            }, 50);
-        });
+        /* All keyboard, touch, and wheel navigation disabled */
 
         // Initialize
         createParticles();
