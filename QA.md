@@ -34,7 +34,7 @@
 Rendered desktop/mobile, browser zoom, keyboard focus order, screen-reader behavior, browser accessibility auditing, and live source-link availability checks of this draft were not run. The supported cloud browser rejected the local file URL because file: is not an allowed protocol. No route around that denial was attempted. Reference pages were visually inspected successfully. Static results do not constitute a full WCAG or visual pass.
 
 ## Scope
-Only local files changed. No public publication, push, or deployment. Original clinical/scientific copy retained. The structure changed from hidden screens to a continuous story with native anchor navigation, requiring no JavaScript.
+Original restyling stage: only local files changed. The subsequent illustration integration was pushed to a review branch, with no main update or deployment. Original clinical/scientific copy retained. The structure changed from hidden screens to a continuous story with native anchor navigation, requiring no JavaScript.
 
 ## Final illustration integration, 10 November 2026
 Rechecked: six local image references, intrinsic dimensions, alt text, unique IDs, anchor targets, one H1, seven sections and absence of JavaScript. All passed. All 13 WebP derivatives retain alpha and original dimensions. No new rendered browser tests were run. Review-branch push does not deploy the draft.
